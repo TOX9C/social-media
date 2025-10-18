@@ -1,0 +1,119 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                     Int            @id @default(autoincrement())
+  username               String         @unique
+  password               String
+  pfpUrl                 String?
+  pfpPath                String?
+  Posts                  Post[]
+  Comments               Comment[]
+  Like                   Like[]
+  following              Follow[]       @relation("follower")
+  followers              Follow[]       @relation("following")
+  sentMessages           Message[]      @relation("sendMessage")
+  receivedMessages       Message[]      @relation("receiveMessage")
+  notifications          Notification[]
+  triggeredNotifications Notification[] @relation("triggerBy")
+}
+
+model Notification {
+  id         Int              @id @default(autoincrement())
+  type       notificationType
+  created_at DateTime         @default(now())
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+
+  triggerBy   User @relation("triggerBy", fields: [triggerById], references: [id])
+  triggerById Int
+
+  postId    Int?
+  messageId Int?
+  commentId Int?
+}
+
+enum notificationType {
+  MESSAGE
+  COMMENT
+  LIKE
+  REQUEST_FOLLOW
+  REQUEST_ACCEPT
+  REQUEST_REJECT
+}
+
+model Message {
+  id         Int      @id @default(autoincrement())
+  content    String
+  created_at DateTime @default(now())
+
+  sender   User @relation("sendMessage", fields: [senderId], references: [id])
+  senderId Int
+
+  receiver   User @relation("receiveMessage", fields: [receiverId], references: [id])
+  receiverId Int
+}
+
+model Follow {
+  id          Int           @id @default(autoincrement())
+  followerId  Int
+  followingId Int
+  status      RequestStatus @default(PENDING)
+
+  follower  User @relation("follower", fields: [followerId], references: [id])
+  following User @relation("following", fields: [followingId], references: [id])
+
+  @@unique([followerId, followingId])
+  @@index([followingId, followerId])
+}
+
+enum RequestStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+model Post {
+  id         Int       @id @default(autoincrement())
+  content    String
+  created_at DateTime  @default(now())
+  comments   Comment[]
+  likes      Like[]
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+
+  @@index([userId])
+}
+
+model Comment {
+  id         Int      @id @default(autoincrement())
+  content    String
+  created_at DateTime @default(now())
+
+  user   User  @relation(fields: [userId], references: [id])
+  userId Int
+  Post   Post? @relation(fields: [postId], references: [id])
+  postId Int?
+
+  @@index([userId, postId])
+}
+
+model Like {
+  id Int @id @default(autoincrement())
+
+  Post   Post? @relation(fields: [postId], references: [id])
+  postId Int?
+  user   User  @relation(fields: [userId], references: [id])
+  userId Int
+
+  @@index([postId, userId])
+}

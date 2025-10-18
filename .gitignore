@@ -1,0 +1,58 @@
+# ===========================================
+# 🚫 Environment and secrets
+# ===========================================
+.env
+.env.local
+.env.*.local
+
+# ===========================================
+# 🧠 Node.js (Backend)
+# ===========================================
+node_modules/
+dist/
+build/
+coverage/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.DS_Store
+
+# Prisma
+/prisma/dev.db
+/prisma/migrations/
+*.db-journal
+
+# ===========================================
+# ⚛️ React (Frontend)
+# ===========================================
+# Build output
+frontend/dist/
+frontend/build/
+# Dependencies
+frontend/node_modules/
+# Environment files
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
+# Misc
+frontend/.DS_Store
+frontend/npm-debug.log*
+
+# ===========================================
+# 💾 IDE and OS files
+# ===========================================
+.vscode/
+.idea/
+*.swp
+Thumbs.db
+.DS_Store
+
+# ===========================================
+# 🔧 Misc
+# ===========================================
+*.zip
+*.tar
+*.gz
+

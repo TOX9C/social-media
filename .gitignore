@@ -24,6 +24,9 @@ pnpm-debug.log*
 /prisma/migrations/
 *.db-journal
 
+# Generated Prisma client
+backend/generated/
+
 # ===========================================
 # ⚛️ React (Frontend)
 # ===========================================

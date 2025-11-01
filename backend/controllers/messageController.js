@@ -69,15 +69,15 @@ const getFriends = async (req, res) => {
         const notUser =
           friend.follower.id == userId
             ? {
-              id: friend.following.id,
-              username: friend.following.username,
-              pfpUrl: friend.following.pfpUrl,
-            }
+                id: friend.following.id,
+                username: friend.following.username,
+                pfpUrl: friend.following.pfpUrl,
+              }
             : {
-              id: friend.follower.id,
-              username: friend.follower.username,
-              pfpUrl: friend.follower.pfpUrl,
-            };
+                id: friend.follower.id,
+                username: friend.follower.username,
+                pfpUrl: friend.follower.pfpUrl,
+              };
 
         return { friend: notUser, message, last };
       }),

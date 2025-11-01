@@ -13,6 +13,23 @@ A full-stack social media platform built with React, Node.js, Express, Prisma, a
 - **Search**: Find users
 - **Profile**: User profiles with profile pictures (Supabase storage)
 
+## Screenshots
+
+### Home Page
+![Home Page](screenshots/HomePage.png)
+
+### Messages
+![Messages Page](screenshots/MessagesPage.png)
+
+### Notifications
+![Notification Page](screenshots/NotificationPage.png)
+
+### Profile
+![Profile Page](screenshots/ProfilePage.png)
+
+### Search
+![Search Page](screenshots/SearchPage.png)
+
 ## Tech Stack
 
 ### Backend
@@ -29,7 +46,6 @@ A full-stack social media platform built with React, Node.js, Express, Prisma, a
 - React Router v7
 - Tailwind CSS
 - Socket.io Client
-- Firebase
 
 ## Prerequisites
 
@@ -66,9 +82,18 @@ npx prisma migrate dev
 npx prisma generate
 ```
 
+Seed the database with fake data (optional):
+```bash
+npm run seed
+```
+
+This will create 15 users (all with password: `password123`), posts, comments, likes, follows, messages, and notifications.
+
 Start the backend server:
 ```bash
-node app.js
+npm start
+# or for development
+npm run dev
 ```
 
 The backend will run on `http://localhost:3000`
@@ -100,6 +125,8 @@ The application uses the following main models:
 - **Message**: Direct messages between users
 - **Notification**: User notifications
 
+For a detailed database schema diagram and relationships, see [DATABASE_SCHEMA.md](DATABASE_SCHEMA.md)
+
 ## API Endpoints
 
 - `/auth` - Authentication routes (login, register)
@@ -115,7 +142,15 @@ The application uses the following main models:
 ### Backend
 ```bash
 cd backend
-node app.js
+npm start
+# or
+npm run dev
+```
+
+### Seed Database
+```bash
+cd backend
+npm run seed
 ```
 
 ### Frontend

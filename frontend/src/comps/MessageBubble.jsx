@@ -1,8 +1,6 @@
-import { useState } from "react";
-
 const MessageBubble = ({ content, who, time, userId }) => {
   if (!userId) return null;
-  const [me, setMe] = useState(who == userId ? true : false);
+  const me = who == userId;
   function formatPostTime(isoString) {
     const date = new Date(isoString);
     const now = new Date();

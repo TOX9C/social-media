@@ -13,83 +13,83 @@ import Messages from "./pages/Messages.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: (
-      <AuthRouter>
-        <Index />
-      </AuthRouter>
-    ),
-  },
-  {
-    path: "/messages",
-    element: (
-      <AuthRouter>
-        <Messages />
-      </AuthRouter>
-    ),
-  },
-  {
-    path: "/search",
-    element: (
-      <AuthRouter>
-        <Search />
-      </AuthRouter>
-    ),
-  },
-  {
-    path: "/notification",
-    element: (
-      <AuthRouter>
-        <Notifications />
-      </AuthRouter>
-    ),
-  },
-  {
-    path: "/profile",
-    element: (
-      <AuthRouter>
-        <Profile />
-      </AuthRouter>
-    ),
-  },
-  {
-    path: "/post/:postId",
-    element: (
-      <AuthRouter>
-        <PostPage />
-      </AuthRouter>
-    ),
-  },
-  {
-    path: "/profile/:userId",
-    element: (
-      <AuthRouter>
-        <ProfilePage />
-      </AuthRouter>
-    ),
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/register",
-    element: <Register />,
-  },
+    {
+        path: "/",
+        element: (
+            <AuthRouter>
+                <Index />
+            </AuthRouter>
+        ),
+    },
+    {
+        path: "/messages",
+        element: (
+            <AuthRouter>
+                <Messages />
+            </AuthRouter>
+        ),
+    },
+    {
+        path: "/search",
+        element: (
+            <AuthRouter>
+                <Search />
+            </AuthRouter>
+        ),
+    },
+    {
+        path: "/notification",
+        element: (
+            <AuthRouter>
+                <Notifications />
+            </AuthRouter>
+        ),
+    },
+    {
+        path: "/profile",
+        element: (
+            <AuthRouter>
+                <Profile />
+            </AuthRouter>
+        ),
+    },
+    {
+        path: "/post/:postId",
+        element: (
+            <AuthRouter>
+                <PostPage />
+            </AuthRouter>
+        ),
+    },
+    {
+        path: "/profile/:userId",
+        element: (
+            <AuthRouter>
+                <ProfilePage />
+            </AuthRouter>
+        ),
+    },
+    {
+        path: "/login",
+        element: <Login />,
+    },
+    {
+        path: "/register",
+        element: <Register />,
+    },
 ]);
 
 const App = () => {
-  useEffect(() => {
-    socket.connect();
-    socket.on("connection", () => {
-      console.log("Connected to socket server:", socket.id);
-    });
-    return () => {
-      socket.disconnect();
-    };
-  }, []);
-  return <RouterProvider router={router} />;
+    useEffect(() => {
+        socket.connect();
+        socket.on("connection", () => {
+            console.log("Connected to socket server:", socket.id);
+        });
+        return () => {
+            socket.disconnect();
+        };
+    }, []);
+    return <RouterProvider router={router} />;
 };
 
 export default App;

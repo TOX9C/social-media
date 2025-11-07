@@ -8,14 +8,14 @@ const Profile = () => {
   const [userId, setUserId] = useState(null);
 
   return (
-    <div className="flex gap-8 ">
+    <div className="flex gap-0 md:gap-8 pb-16 md:pb-0">
       <Nav />
       <ProfileCard
         isAccount={true}
         setUserId={setUserId}
         setEditShowing={setEditShowing}
       />
-      <ProfileEdit editShowing={editShowing} userId={userId} />
+      <ProfileEdit editShowing={editShowing} setEditShowing={setEditShowing} userId={userId} />
     </div>
   );
 };

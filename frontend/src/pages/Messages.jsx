@@ -79,26 +79,59 @@ const Messages = () => {
     }, [selectedUser]);
 
     return (
-        <div className="flex gap-8">
+        <div className="flex gap-0 md:gap-8 h-screen overflow-hidden">
             <Nav />
-            <div className=" border-l-2 border-r-2  border-[#544c46] h-screen w-[55%]">
-                <div className="flex w-full h-screen">
-                    <FriendList
-                        friends={friends}
-                        setSelectedUser={setSelectedUser}
-                        selectedUser={selectedUser}
-                    />
-                    {selectedUser == null ? (
-                        <div className="overflow-y-auto scrollbar-hide w-full"></div>
-                    ) : (
-                        <MessageBox
-                            windowLoading={windowLoading}
-                            setMessages={setMessages}
-                            setFriends={setFriends}
-                            user={selectedUser}
-                            messages={messages}
+            <div className="border-l-0 md:border-l-2 border-r-0 md:border-r-2 border-[#544c46] h-screen w-full md:w-[55%] overflow-hidden pb-16 md:pb-0">
+                <div className="flex w-full h-full">
+                    {/* Desktop: Show both friend list and message box */}
+                    <div className="hidden md:flex w-full h-full">
+                        <FriendList
+                            friends={friends}
+                            setSelectedUser={setSelectedUser}
+                            selectedUser={selectedUser}
                         />
-                    )}
+                        {selectedUser == null ? (
+                            <div className="overflow-y-auto scrollbar-hide w-full"></div>
+                        ) : (
+                            <MessageBox
+                                windowLoading={windowLoading}
+                                setMessages={setMessages}
+                                setFriends={setFriends}
+                                user={selectedUser}
+                                messages={messages}
+                            />
+                        )}
+                    </div>
+
+                    {/* Mobile: Show friend list or message box based on selection */}
+                    <div className="md:hidden w-full h-full flex flex-col">
+                        {selectedUser == null ? (
+                            <FriendList
+                                friends={friends}
+                                setSelectedUser={setSelectedUser}
+                                selectedUser={selectedUser}
+                            />
+                        ) : (
+                            <div className="w-full h-full flex flex-col overflow-hidden">
+                                <button
+                                    onClick={() => setSelectedUser(null)}
+                                    className="text-[#f4f3ee] bg-[#463f3a] border-b-2 border-[#544c46] px-3 py-3 text-left shrink-0 flex items-center gap-2"
+                                >
+                                    <span className="text-lg">←</span>
+                                    <span>Back to Messages</span>
+                                </button>
+                                <div className="flex-1 overflow-hidden">
+                                    <MessageBox
+                                        windowLoading={windowLoading}
+                                        setMessages={setMessages}
+                                        setFriends={setFriends}
+                                        user={selectedUser}
+                                        messages={messages}
+                                    />
+                                </div>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

@@ -5,10 +5,12 @@ import SearchAndFollow from "../comps/SearchAndFollow";
 const Index = () => {
   return (
     <>
-      <div className="flex gap-8 w-screen bg-[#463f3a] h-screen">
+      <div className="flex gap-0 md:gap-8 w-screen bg-[#463f3a] h-screen pb-16 md:pb-0">
         <Nav />
         <PostWall />
-        <SearchAndFollow />
+        <div className="hidden md:block">
+          <SearchAndFollow />
+        </div>
       </div>
     </>
   );

@@ -56,19 +56,19 @@ const MessageBox = ({
   }, [messages]);
 
   return (
-    <div className=" flex-col w-full h-full flex">
-      <div className="border-b-2 border-[#544c46] mb-3 text-[#f4f3ee] font-bold text-[1.3rem] pl-3 py-1 flex gap-3 items-center">
+    <div className="flex-col w-full h-full flex overflow-hidden">
+      <div className="border-b-2 border-[#544c46] bg-[#463f3a] text-[#f4f3ee] font-bold text-base md:text-[1.3rem] px-3 py-3 flex gap-2 md:gap-3 items-center shrink-0">
         <div
-          className="w-7 h-7 rounded-full bg-black"
+          className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-black shrink-0"
           style={{
             backgroundImage: user.pfpUrl ? `url(${user.pfpUrl})` : "none",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
         ></div>
-        <p className="">{user.username}</p>
+        <p className="truncate">{user.username}</p>
       </div>
-      <div className="overflow-y-auto gap-2 flex flex-col scrollbar-hide h-full w-full ">
+      <div className="overflow-y-auto gap-2 flex flex-col scrollbar-hide flex-1 w-full px-3">
         {messages.map((message, index) => {
           return (
             <MessageBubble
@@ -82,14 +82,15 @@ const MessageBox = ({
         })}
         <div ref={bottomRef}></div>
       </div>
-      <div className="w-full flex gap-3 px-3 items-center shrink-0 mb-5">
+      <div className="w-full flex gap-3 px-3 py-3 items-center shrink-0 border-t border-[#544c46]">
         <input
           value={content}
           onChange={(e) => setContent(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && sendMessage()}
           type="text"
-          className="w-full bg-[#58524d] text-[#f4f3ee] text-[1.2rem] rounded-3xl focus:outline-none  focus:border-none px-5 py-1"
+          className="w-full bg-[#58524d] text-[#f4f3ee] text-base md:text-[1.2rem] rounded-3xl focus:outline-none focus:border-none px-4 md:px-5 py-2"
         />
-        <button className="text-[#f4f3ee]" onClick={sendMessage}>
+        <button className="text-[#f4f3ee] text-lg" onClick={sendMessage}>
           <FaPaperPlane />
         </button>
       </div>

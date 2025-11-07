@@ -60,9 +60,9 @@ const Search = () => {
   };
 
   return (
-    <div className="flex gap-8">
+    <div className="flex gap-0 md:gap-8 pb-16 md:pb-0">
       <Nav />
-      <div className="overflow-y-auto scrollbar-hide border-l-2 border-r-2 border-[#544c46] h-screen w-[50%]">
+      <div className="overflow-y-auto scrollbar-hide border-l-0 md:border-l-2 border-r-0 md:border-r-2 border-[#544c46] h-screen w-full md:w-[50%]">
         <div className="mt-3 text-[1.2rem] mx-5 flex items-center gap-2 border-2 border-[#544c46] rounded-3xl py-1 px-4 text-[#f4f3ee]">
           <CiSearch />
           <input

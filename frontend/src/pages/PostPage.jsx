@@ -38,9 +38,9 @@ const PostPage = () => {
   if (isLoading) return <div>Loading...</div>;
 
   return (
-    <div className="flex gap-8">
+    <div className="flex gap-0 md:gap-8 pb-16 md:pb-0">
       <Nav />
-      <div className="overflow-y-auto scrollbar-hide border-l-2 border-r-2 border-[#544c46] h-screen w-[50%]">
+      <div className="overflow-y-auto scrollbar-hide border-l-0 md:border-l-2 border-r-0 md:border-r-2 border-[#544c46] h-screen w-full md:w-[50%]">
         <Post
           key={post.id}
           id={post.id}
@@ -77,7 +77,9 @@ const PostPage = () => {
           );
         })}
       </div>
-      <SearchAndFollow />
+      <div className="hidden md:block">
+        <SearchAndFollow />
+      </div>
     </div>
   );
 };

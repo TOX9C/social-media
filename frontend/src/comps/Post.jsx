@@ -67,38 +67,38 @@ const Post = ({
   };
 
   return (
-    <div className="border-b-2 border-[#544c46] p-3 text-[#f4f3ee]">
+    <div className="border-b-2 border-[#544c46] p-3 md:p-4 text-[#f4f3ee]">
       <div
         onClick={goProfile}
-        className="flex cursor-pointer items-center gap-3"
+        className="flex cursor-pointer items-center gap-2 md:gap-3"
       >
         <div
-          className="w-8 h-8 rounded-full bg-black"
+          className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-black shrink-0"
           style={{
             backgroundImage: pfpUrl ? `url(${pfpUrl})` : "none",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
         ></div>
-        {username}
+        <span className="text-sm md:text-base font-medium">{username}</span>
       </div>
-      <p className="mt-2">{content}</p>
-      <div className="flex gap-6 mt-2 w-full justify-start">
+      <p className="mt-2 text-sm md:text-base leading-relaxed">{content}</p>
+      <div className="flex gap-4 md:gap-6 mt-2 w-full justify-start text-sm md:text-base">
         <div
           onClick={goPost}
-          className="flex items-center gap-2 text-[#d6d2c0]"
+          className="flex items-center gap-1 md:gap-2 text-[#d6d2c0] cursor-pointer"
         >
           <FaRegComment />
           {commentCount}
         </div>
         <div
           onClick={likePost}
-          className="flex cursor-pointer items-center gap-2 text-[#d6d2c0]"
+          className="flex cursor-pointer items-center gap-1 md:gap-2 text-[#d6d2c0]"
         >
           <IoMdHeartEmpty />
           {like}
         </div>
-        <p className="text-[#d6d2c0] ml-auto">{formatPostTime(time)}</p>
+        <p className="text-[#d6d2c0] ml-auto text-xs md:text-sm">{formatPostTime(time)}</p>
       </div>
     </div>
   );

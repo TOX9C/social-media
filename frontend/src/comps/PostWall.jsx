@@ -28,7 +28,7 @@ const PostWall = () => {
   }, []);
 
   return (
-    <div className="overflow-y-auto scrollbar-hide border-l-2 border-r-2 border-[#544c46] h-screen w-[50%]">
+    <div className="overflow-y-auto scrollbar-hide border-l-0 md:border-l-2 border-r-0 md:border-r-2 border-[#544c46] h-screen w-full md:w-[50%]">
       <MakePost setPosts={setPosts} />
       {posts.map((post) => {
         return (

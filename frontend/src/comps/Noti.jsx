@@ -86,9 +86,10 @@ const Noti = ({
     };
 
     return (
-        <div className="flex items-center mt-2 pb-2  pl-3  gap-5">
+        <div className="flex items-start gap-3 px-4 md:px-5 py-2.5 hover:bg-[#3b342f] transition-colors">
             <div
-                className="w-10 h-10 shrink-0 rounded-full bg-black"
+                className="w-9 h-9 md:w-10 md:h-10 shrink-0 rounded-full bg-black cursor-pointer"
+                onClick={() => navigate(`/profile/${triggerById}`)}
                 style={{
                     backgroundImage: pfpUrl ? `url(${pfpUrl})` : "none",
                     backgroundSize: "cover",
@@ -96,48 +97,70 @@ const Noti = ({
                 }}
             ></div>
             {type == "COMMENT" ? (
-                <div className="flex gap-1 w-full text-[#f4f3ee]">
-                    <p className="font-bold text-[1rem] text-[#f4f3ee]">{username}</p>
-                    Commented on you'r post
-                    <p className="text-[#d6d2c0]">{formatPostTime(time)}</p>
+                <div className="flex-1 min-w-0 flex items-center justify-between gap-3">
+                    <div className="flex flex-col gap-0.5 min-w-0">
+                        <div className="text-sm md:text-base text-[#f4f3ee]">
+                            <span className="font-bold">{username}</span>
+                            <span className="ml-1">commented on your post</span>
+                        </div>
+                        <p className="text-xs text-[#d6d2c0]">{formatPostTime(time)}</p>
+                    </div>
                     <button
-                        className="ml-auto mr-4 text-[#d6d2c0] cursor-pointer"
+                        className="shrink-0 text-[#f4f3ee] border border-[#544c46] hover:bg-[#544c46] rounded-full px-3 py-1 text-xs"
                         onClick={goPost}
                     >
-                        Go to post
+                        View
                     </button>
                 </div>
             ) : type == "REQUEST_FOLLOW" ? (
-                <div className="flex gap-1 w-full text-[#f4f3ee]">
-                    <p className="font-bold">{username}</p>
-                    <p>Sent a follow request</p>
-                    <p className="text-[#d6d2c0]">{formatPostTime(time)}</p>
-                    <div className="ml-auto text-[#d6d2c0] gap-3 flex items-center">
+                <div className="flex-1 min-w-0">
+                    <div className="flex flex-col gap-0.5 mb-2">
+                        <div className="text-sm md:text-base text-[#f4f3ee]">
+                            <span className="font-bold">{username}</span>
+                            <span className="ml-1">sent a follow request</span>
+                        </div>
+                        <p className="text-xs text-[#d6d2c0]">{formatPostTime(time)}</p>
+                    </div>
+                    <div className="flex gap-2">
                         <button
                             onClick={() => answerRequest("accept")}
-                            className="text-[#463f3a] bg-[#f4f3ee] font-bold rounded-2xl py-1 text-[.9rem] px-3"
+                            className="text-[#463f3a] bg-[#f4f3ee] font-medium rounded-full py-1 px-3 text-xs"
                         >
                             Accept
                         </button>
                         <button
                             onClick={() => answerRequest("reject")}
-                            className="border-[#544c46] border-2  px-3 py-1 rounded-2xl text-[.9rem]"
+                            className="border-[#544c46] border text-[#f4f3ee] px-3 py-1 rounded-full text-xs"
                         >
                             Reject
                         </button>
                     </div>
                 </div>
             ) : type == "REQUEST_ACCEPT" ? (
-                <div className="flex gap-1 w-full text-[#f4f3ee]">
-                    <p className="font-bold">{username}</p>
-                    <p>Accepted you'r request</p>
-                    <p className="text-[#d6d2c0]">{formatPostTime(time)}</p>
+                <div className="flex-1 min-w-0">
+                    <div className="flex flex-col gap-0.5">
+                        <div className="text-sm md:text-base text-[#f4f3ee]">
+                            <span className="font-bold">{username}</span>
+                            <span className="ml-1">accepted your request</span>
+                        </div>
+                        <p className="text-xs text-[#d6d2c0]">{formatPostTime(time)}</p>
+                    </div>
                 </div>
             ) : type == "LIKE" ? (
-                <div className="flex gap-1 w-full text-[#f4f3ee]">
-                    <p className="font-bold">{username}</p>
-                    <p>Liked you'r post</p>
-                    <p className="text-[#d6d2c0]">{formatPostTime(time)}</p>
+                <div className="flex-1 min-w-0 flex items-center justify-between gap-3">
+                    <div className="flex flex-col gap-0.5 min-w-0">
+                        <div className="text-sm md:text-base text-[#f4f3ee]">
+                            <span className="font-bold">{username}</span>
+                            <span className="ml-1">liked your post</span>
+                        </div>
+                        <p className="text-xs text-[#d6d2c0]">{formatPostTime(time)}</p>
+                    </div>
+                    <button
+                        className="shrink-0 text-[#f4f3ee] border border-[#544c46] hover:bg-[#544c46] rounded-full px-3 py-1 text-xs"
+                        onClick={goPost}
+                    >
+                        View
+                    </button>
                 </div>
             ) : <div></div>}
         </div>

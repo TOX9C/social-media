@@ -36,7 +36,7 @@ module.exports = { io, onlineUsers };
 const startServer = async () => {
   try {
     await prisma.$connect();
-    httpServer.listen(3000, () => {
+    httpServer.listen(process.env.PORT, () => {
       console.log("✅ Server running on port 3000");
     });
   } catch (error) {

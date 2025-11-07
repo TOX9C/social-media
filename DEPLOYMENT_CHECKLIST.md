@@ -32,38 +32,42 @@ git commit -m "Prepare for deployment: Replace hardcoded URLs with environment v
 git push origin main
 ```
 
-### 3. Deploy Backend to Railway
+### 3. Create Database on Railway
 
 1. Sign up at https://railway.app
-2. Click "New Project" → "Deploy from GitHub repo"
-3. Select your repository
+2. Click "+ New Project" → "Provision PostgreSQL"
+3. Click on the database → "Variables" tab
+4. **Copy the DATABASE_URL** (save it somewhere safe)
+
+### 4. Deploy Backend to Render
+
+1. Sign up at https://render.com
+2. Click "New +" → "Web Service"
+3. Connect GitHub and select your repository
 4. **Important Settings:**
    - Root Directory: `backend`
-   - Start Command: `npm start`
+   - Build Command: `npm install && npx prisma generate`
+   - Start Command: `npx prisma migrate deploy && node app.js`
+   - Instance Type: **Free**
    
-5. Add PostgreSQL database:
-   - Click "+ New" → "Database" → "PostgreSQL"
-   
-6. **Set Environment Variables** in Railway:
+5. **Set Environment Variables** in Render:
    ```env
-   DATABASE_URL=<automatically provided by Railway>
+   DATABASE_URL=<paste from Railway step 3.4>
    JWT_CODE=<generate with: openssl rand -base64 32>
    SUPABASE_URL=<your supabase url>
    SUPABASE_SERVICE_ROLE_KEY=<your supabase key>
    CORS_ORIGIN=https://your-app.vercel.app
    NODE_ENV=production
-   PORT=3000
+   PORT=10000
    ```
 
-7. **Run migrations** (in Railway shell or add to start script):
-   ```bash
-   npx prisma migrate deploy
-   npx prisma generate
-   ```
+6. Click "Create Web Service" and wait for deployment
 
-8. Copy your Railway backend URL (e.g., `https://your-app.up.railway.app`)
+7. Copy your Render backend URL (e.g., `https://your-app-backend.onrender.com`)
 
-### 4. Deploy Frontend to Vercel
+⚠️ **Note**: First deployment takes 5-10 minutes. Free tier has cold starts (30-60s wake up after 15min inactivity).
+
+### 5. Deploy Frontend to Vercel
 
 1. Sign up at https://vercel.com
 2. Click "Add New..." → "Project"
@@ -76,24 +80,26 @@ git push origin main
    
 5. **Set Environment Variable:**
    ```env
-   VITE_API_URL=https://your-backend.up.railway.app
+   VITE_API_URL=https://your-app-backend.onrender.com
    ```
-   (Use the URL from step 3.8)
+   (Use the URL from step 4.7)
 
 6. Click "Deploy"
 
 7. Copy your Vercel URL (e.g., `https://your-app.vercel.app`)
 
-### 5. Update Backend CORS
+### 6. Update Backend CORS
 
-Go back to Railway and update the `CORS_ORIGIN` environment variable:
+Go back to Render and update the `CORS_ORIGIN` environment variable:
 ```env
 CORS_ORIGIN=https://your-app.vercel.app
 ```
 
-Railway will automatically redeploy.
+Click "Manual Deploy" → "Deploy latest commit" to restart.
 
-### 6. Final Testing
+### 7. Final Testing
+
+⚠️ **Important**: First request will be slow (30-60s) as backend wakes up from sleep. This is normal for free tier.
 
 Visit your Vercel URL and test:
 - [ ] Can register a new account
@@ -127,8 +133,14 @@ Visit your Vercel URL and test:
 3. Make sure migrations were run (`npx prisma migrate deploy`)
 4. Check PostgreSQL database is running
 
+### Backend slow or timing out
+1. **This is normal for free tier** - wait 30-60 seconds
+2. Backend sleeps after 15 minutes of inactivity
+3. Use UptimeRobot to keep it awake (optional)
+4. Consider upgrading to paid tier ($7/month)
+
 ### 500 errors
-1. Check Railway backend logs
+1. Check Render backend logs
 2. Verify all environment variables are set
 3. Check for missing dependencies
 4. Look for runtime errors in logs
@@ -137,11 +149,14 @@ Visit your Vercel URL and test:
 
 ## 💰 Estimated Costs
 
-### Free Tier (Good for testing/portfolio)
-- **Vercel**: Free forever (hobby plan)
-- **Railway**: $5/month (requires credit card, includes $5 credit)
-- **Supabase**: Free tier (1GB storage, 2GB database)
-- **Total**: ~$0-5/month
+### 100% Free Tier (Perfect for Portfolio)
+- **Vercel (Frontend)**: Free forever
+- **Render (Backend)**: Free (with cold starts)
+- **Railway (Database)**: Free PostgreSQL
+- **Supabase (Storage)**: Free tier
+- **Total**: **$0/month** ✅
+
+**Trade-offs**: Backend sleeps after 15 min (30-60s wake up time)
 
 ### Production Ready
 - **Vercel Pro**: $20/month

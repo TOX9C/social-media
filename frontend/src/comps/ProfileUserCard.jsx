@@ -80,7 +80,14 @@ const ProfileUserCard = ({ userId }) => {
     fetchData();
   }, []);
 
-  if (loading) return <div>loading....</div>;
+  if (loading) return (
+    <div className="flex items-center justify-center h-screen w-full md:w-[50%] bg-[#463f3a]">
+      <div className="flex flex-col items-center">
+        <div className="w-16 h-16 border-4 border-[#544c46] border-t-[#f4f3ee] rounded-full animate-spin"></div>
+        <p className="mt-4 text-[#d6d2c0]">Loading profile...</p>
+      </div>
+    </div>
+  );
 
   return (
     <div className="overflow-y-auto scrollbar-hide h-screen w-full md:w-[50%] border-r-0 md:border-r-2 border-l-0 md:border-l-2 border-[#544c46] text-[#d6d2c0]">

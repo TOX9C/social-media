@@ -79,7 +79,10 @@ const Search = () => {
         </div>
 
         {searchLoadin ? (
-          <div>loading...</div>
+          <div className="flex flex-col items-center justify-center py-20">
+            <div className="w-16 h-16 border-4 border-[#544c46] border-t-[#f4f3ee] rounded-full animate-spin"></div>
+            <p className="mt-4 text-[#d6d2c0]">Searching...</p>
+          </div>
         ) : (
           <div className="flex flex-col ">
             <div>

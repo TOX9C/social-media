@@ -16,17 +16,17 @@ const Nav = () => {
   return (
     <>
       {/* Desktop Navigation - Side Nav */}
-      <div className="hidden md:flex text-[#f4f3ee] flex-col items-start pl-5 gap-1 text-[1.4rem] ml-[8%] mt-[5%]">
+      <div className="hidden md:flex text-[#f4f3ee] flex-col items-start pl-5 gap-1 text-[1.4rem] ml-[8%] mt-[5%] select-none">
         <button
           onClick={() => navigate("/")}
-          className={`hover:bg-[#8a817c] px-3 py-1 transition-all rounded-xl flex flex-row items-center gap-3 ${isActive("/") ? "font-bold" : " "}`}
+          className={`hover:bg-[#8a817c] px-3 py-1 transition-all rounded-xl flex flex-row items-center gap-3 select-none ${isActive("/") ? "font-bold" : " "}`}
         >
           {isActive("/") ? <GoHomeFill /> : <GoHome />}
           Home
         </button>
         <button
           onClick={() => navigate("/messages")}
-          className={`hover:bg-[#8a817c] px-3 py-1 transition-all rounded-xl flex flex-row items-center gap-3 ${isActive("/messages") ? "font-bold" : " "}`}
+          className={`hover:bg-[#8a817c] px-3 py-1 transition-all rounded-xl flex flex-row items-center gap-3 select-none ${isActive("/messages") ? "font-bold" : " "}`}
         >
           {isActive("/messages") ? (
             <TbMessageCircleFilled />
@@ -37,14 +37,14 @@ const Nav = () => {
         </button>
         <button
           onClick={() => navigate("/search")}
-          className={`hover:bg-[#8a817c] px-3 py-1 transition-all rounded-xl flex flex-row items-center gap-3 ${isActive("/search") ? "font-bold" : " "}`}
+          className={`hover:bg-[#8a817c] px-3 py-1 transition-all rounded-xl flex flex-row items-center gap-3 select-none ${isActive("/search") ? "font-bold" : " "}`}
         >
           {isActive("/search") ? <IoSearchSharp /> : <IoSearchOutline />}
           Search
         </button>
         <button
           onClick={() => navigate("/notification")}
-          className={`hover:bg-[#8a817c] px-3 py-1 transition-all rounded-xl flex flex-row items-center gap-3 ${isActive("/notification") ? "[text-shadow:0_0_1px_currentColor,0_0_1px_currentColor]" : "text-shadow-none"}`}
+          className={`hover:bg-[#8a817c] px-3 py-1 transition-all rounded-xl flex flex-row items-center gap-3 select-none ${isActive("/notification") ? "[text-shadow:0_0_1px_currentColor,0_0_1px_currentColor]" : "text-shadow-none"}`}
         >
           {isActive("/notification") ? (
             <IoMdNotifications />
@@ -55,7 +55,7 @@ const Nav = () => {
         </button>
         <button
           onClick={() => navigate("/profile")}
-          className={`hover:bg-[#8a817c] px-3 py-1 transition-all rounded-xl flex flex-row items-center gap-3 ${isActive("/profile") ? "font-bold" : " "}`}
+          className={`hover:bg-[#8a817c] px-3 py-1 transition-all rounded-xl flex flex-row items-center gap-3 select-none ${isActive("/profile") ? "font-bold" : " "}`}
         >
           {isActive("/profile") ? <IoPersonSharp /> : <IoPersonOutline />}
           Profile
@@ -63,35 +63,35 @@ const Nav = () => {
       </div>
 
       {/* Mobile Navigation - Bottom Nav */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-[#463f3a] border-t-2 border-[#544c46] z-50">
-        <div className="flex justify-around items-center text-[#f4f3ee] text-[1.5rem] py-2">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-[#463f3a] border-t-2 border-[#544c46] z-50 select-none">
+        <div className="flex justify-around items-center text-[#f4f3ee] text-[1.5rem] py-2 select-none">
           <button
             onClick={() => navigate("/")}
-            className={`p-2 transition-all rounded-xl ${isActive("/") ? "text-[#f4f3ee]" : "text-[#d6d2c0]"}`}
+            className={`p-2 transition-all rounded-xl select-none ${isActive("/") ? "text-[#f4f3ee]" : "text-[#d6d2c0]"}`}
           >
             {isActive("/") ? <GoHomeFill /> : <GoHome />}
           </button>
           <button
             onClick={() => navigate("/messages")}
-            className={`p-2 transition-all rounded-xl ${isActive("/messages") ? "text-[#f4f3ee]" : "text-[#d6d2c0]"}`}
+            className={`p-2 transition-all rounded-xl select-none ${isActive("/messages") ? "text-[#f4f3ee]" : "text-[#d6d2c0]"}`}
           >
             {isActive("/messages") ? <TbMessageCircleFilled /> : <TbMessageCircle />}
           </button>
           <button
             onClick={() => navigate("/search")}
-            className={`p-2 transition-all rounded-xl ${isActive("/search") ? "text-[#f4f3ee]" : "text-[#d6d2c0]"}`}
+            className={`p-2 transition-all rounded-xl select-none ${isActive("/search") ? "text-[#f4f3ee]" : "text-[#d6d2c0]"}`}
           >
             {isActive("/search") ? <IoSearchSharp /> : <IoSearchOutline />}
           </button>
           <button
             onClick={() => navigate("/notification")}
-            className={`p-2 transition-all rounded-xl ${isActive("/notification") ? "text-[#f4f3ee]" : "text-[#d6d2c0]"}`}
+            className={`p-2 transition-all rounded-xl select-none ${isActive("/notification") ? "text-[#f4f3ee]" : "text-[#d6d2c0]"}`}
           >
             {isActive("/notification") ? <IoMdNotifications /> : <IoMdNotificationsOutline />}
           </button>
           <button
             onClick={() => navigate("/profile")}
-            className={`p-2 transition-all rounded-xl ${isActive("/profile") ? "text-[#f4f3ee]" : "text-[#d6d2c0]"}`}
+            className={`p-2 transition-all rounded-xl select-none ${isActive("/profile") ? "text-[#f4f3ee]" : "text-[#d6d2c0]"}`}
           >
             {isActive("/profile") ? <IoPersonSharp /> : <IoPersonOutline />}
           </button>

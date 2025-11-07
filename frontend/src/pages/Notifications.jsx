@@ -2,6 +2,7 @@ import SearchAndFollow from "../comps/SearchAndFollow";
 import Nav from "../comps/Nav.jsx";
 import { useEffect, useState } from "react";
 import Noti from "../comps/Noti.jsx";
+import { API_URL } from "../config";
 
 const Notifications = () => {
   const token = localStorage.getItem("token");
@@ -9,7 +10,7 @@ const Notifications = () => {
 
   const getNotis = async () => {
     try {
-      const responce = await fetch("http://localhost:3000/noti/", {
+      const responce = await fetch(`${API_URL}/noti/`, {
         method: "GET",
         headers: {
           "Content-type": "application",

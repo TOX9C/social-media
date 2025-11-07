@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Post from "../comps/Post.jsx";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../config";
 
 const ProfileUserCard = ({ userId }) => {
   const [user, setUser] = useState(null);
@@ -12,7 +13,7 @@ const ProfileUserCard = ({ userId }) => {
 
   const followRequest = async () => {
     try {
-      const responce = await fetch("http://localhost:3000/follow/request", {
+      const responce = await fetch(`${API_URL}/follow/request`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -31,7 +32,7 @@ const ProfileUserCard = ({ userId }) => {
 
   const getInfo = async () => {
     try {
-      const responce = await fetch("http://localhost:3000/search/searchUser", {
+      const responce = await fetch(`${API_URL}/search/searchUser`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -52,7 +53,7 @@ const ProfileUserCard = ({ userId }) => {
 
   const getPosts = async () => {
     try {
-      const responce = await fetch("http://localhost:3000/post/userPosts", {
+      const responce = await fetch(`${API_URL}/post/userPosts`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",

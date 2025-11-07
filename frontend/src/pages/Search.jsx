@@ -4,6 +4,7 @@ import { CiSearch } from "react-icons/ci";
 import UserCard from "../comps/UserCard.jsx";
 import Post from "../comps/Post.jsx";
 import { useLocation } from "react-router-dom";
+import { API_URL } from "../config";
 
 const Search = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -32,7 +33,7 @@ const Search = () => {
     setPosts([]);
     setUsers([]);
     try {
-      const responce = await fetch("http://localhost:3000/search", {
+      const responce = await fetch(`${API_URL}/search`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",

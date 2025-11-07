@@ -5,6 +5,7 @@ import SearchAndFollow from "../comps/SearchAndFollow";
 import Post from "../comps/Post.jsx";
 import Comment from "../comps/Comment.jsx";
 import MakeComment from "../comps/MakeComment.jsx";
+import { API_URL } from "../config";
 
 const PostPage = () => {
   const { postId } = useParams();
@@ -14,7 +15,7 @@ const PostPage = () => {
 
   const getPost = async () => {
     try {
-      const responce = await fetch("http://localhost:3000/post/post", {
+      const responce = await fetch(`${API_URL}/post/post`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",

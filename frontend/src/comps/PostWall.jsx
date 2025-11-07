@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import MakePost from "./MakePost";
 import Post from "./Post";
+import { API_URL } from "../config";
 
 const PostWall = () => {
   const [posts, setPosts] = useState([]);
   const token = localStorage.getItem("token");
   const getPosts = async () => {
     try {
-      const response = await fetch("http://localhost:3000/post/get", {
+      const response = await fetch(`${API_URL}/post/get`, {
         method: "GET",
         headers: {
           "Content-type": "application/json",

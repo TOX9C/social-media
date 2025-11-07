@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { API_URL } from "../config";
 
 const ProfileEdit = ({ editShowing, setEditShowing }) => {
   const [file, setFile] = useState(null);
@@ -26,7 +27,7 @@ const ProfileEdit = ({ editShowing, setEditShowing }) => {
       const formdata = new FormData();
       formdata.append("file", file);
 
-      const response = await fetch("http://localhost:3000/auth/me/uploadpfp", {
+      const response = await fetch(`${API_URL}/auth/me/uploadpfp`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

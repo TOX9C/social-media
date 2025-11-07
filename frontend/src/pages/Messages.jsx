@@ -3,6 +3,7 @@ import Nav from "../comps/Nav.jsx";
 import { socket } from "../socket.js";
 import FriendList from "../comps/FriendList.jsx";
 import MessageBox from "../comps/MessageBox.jsx";
+import { API_URL } from "../config";
 
 const Messages = () => {
     const [friends, setFriends] = useState([]);
@@ -26,7 +27,7 @@ const Messages = () => {
 
     const getList = async () => {
         try {
-            const responce = await fetch("http://localhost:3000/message/", {
+            const responce = await fetch(`${API_URL}/message/`, {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -51,7 +52,7 @@ const Messages = () => {
         if (selectedUser == null) return;
         setWindowLoading(true);
         try {
-            const responce = await fetch("http://localhost:3000/message/history", {
+            const responce = await fetch(`${API_URL}/message/history`, {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import UserCard from "./UserCard";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../config";
 
 const SearchAndFollow = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -11,7 +12,7 @@ const SearchAndFollow = () => {
 
   const getUsers = async () => {
     try {
-      const responce = await fetch("http://localhost:3000/follow/rand", {
+      const responce = await fetch(`${API_URL}/follow/rand`, {
         method: "GET",
         headers: {
           "Content-type": "application/json",

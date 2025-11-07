@@ -1,4 +1,5 @@
 import React, { useRef, useState, useLayoutEffect } from "react";
+import { API_URL } from "../config";
 
 const MakePost = ({ setPosts }) => {
   const [content, setContent] = useState("");
@@ -19,7 +20,7 @@ const MakePost = ({ setPosts }) => {
   const handleMakePost = async () => {
     try {
       if (content.trim() == "") return console.log("noooo");
-      const response = await fetch("http://localhost:3000/post/make", {
+      const response = await fetch(`${API_URL}/post/make`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",

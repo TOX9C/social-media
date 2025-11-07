@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FaRegComment } from "react-icons/fa";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../config";
 
 const Post = ({
   userId,
@@ -38,7 +39,7 @@ const Post = ({
 
   const likePost = async () => {
     try {
-      const responce = await fetch("http://localhost:3000/post/like", {
+      const responce = await fetch(`${API_URL}/post/like`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",

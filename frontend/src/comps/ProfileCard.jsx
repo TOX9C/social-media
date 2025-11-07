@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Post from "./Post";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../config";
 
 const ProfileCard = ({ isAccount, setEditShowing, setUserId }) => {
   const [user, setUser] = useState(null);
@@ -11,7 +12,7 @@ const ProfileCard = ({ isAccount, setEditShowing, setUserId }) => {
 
   const getInfo = async () => {
     try {
-      const responce = await fetch("http://localhost:3000/auth/me", {
+      const responce = await fetch(`${API_URL}/auth/me`, {
         method: "GET",
         headers: {
           "Content-type": "application/json",
@@ -30,7 +31,7 @@ const ProfileCard = ({ isAccount, setEditShowing, setUserId }) => {
 
   const getPosts = async () => {
     try {
-      const responce = await fetch("http://localhost:3000/post/userPosts", {
+      const responce = await fetch(`${API_URL}/post/userPosts`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",

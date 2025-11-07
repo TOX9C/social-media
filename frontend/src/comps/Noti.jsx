@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../config";
 
 const Noti = ({
     removeNoti,
@@ -36,7 +37,7 @@ const Noti = ({
     const answerRequest = async (requestType) => {
         try {
             const responce = await fetch(
-                `http://localhost:3000/follow/request/${requestType}`,
+                `${API_URL}/follow/request/${requestType}`,
                 {
                     method: "POST",
                     headers: {
@@ -68,7 +69,7 @@ const Noti = ({
 
     const deleteNoti = async () => {
         try {
-            const responce = await fetch("http://localhost:3000/noti/delete", {
+            const responce = await fetch(`${API_URL}/noti/delete`, {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`,

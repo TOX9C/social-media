@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
+import { API_URL } from "../config";
 
 const AuthRouter = ({ children }) => {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ const AuthRouter = ({ children }) => {
   }, []);
   const check = async () => {
     try {
-      const responce = await fetch("http://localhost:3000/auth/me", {
+      const responce = await fetch(`${API_URL}/auth/me`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,

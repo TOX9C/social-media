@@ -1,4 +1,5 @@
 import { useLayoutEffect, useRef, useState } from "react";
+import { API_URL } from "../config";
 
 const MakeComment = ({ postId, authorId, onAddComment }) => {
   const [content, setContent] = useState("");
@@ -19,7 +20,7 @@ const MakeComment = ({ postId, authorId, onAddComment }) => {
   const submitComment = async () => {
     if (content.trim() == "") return console.log("n o");
     try {
-      const response = await fetch("http://localhost:3000/comment/make", {
+      const response = await fetch(`${API_URL}/comment/make`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",

@@ -7,8 +7,34 @@ const { PrismaClient } = require("./generated/prisma");
 
 const prisma = new PrismaClient();
 const app = express();
+
+// Configure CORS to allow Vercel deployments
+const allowedOrigins = [
+  process.env.CORS_ORIGIN,
+  "http://localhost:5173",
+  "http://localhost:3000"
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (mobile apps, Postman, etc)
+    if (!origin) return callback(null, true);
+    
+    // Check if origin matches any allowed origin or Vercel pattern
+    if (
+      allowedOrigins.includes(origin) ||
+      origin.includes('.vercel.app') ||
+      origin.includes('localhost')
+    ) {
+      return callback(null, true);
+    }
+    
+    callback(new Error('Not allowed by CORS'));
+  },
+  credentials: true
+}));
+
 app.use(express.json());
-app.use(cors());
 
 const httpServer = createServer(app);
 

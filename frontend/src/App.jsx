@@ -5,7 +5,7 @@ import AuthRouter from "./comps/AuthRouter.jsx";
 import Login from "./pages/Login";
 import Register from "./pages/Register.jsx";
 import Index from "./pages/Index.jsx";
-import PostPage from "./pages/postPage.jsx";
+import PostPage from "./pages/PostPage.jsx";
 import Search from "./pages/Search.jsx";
 import Profile from "./pages/Profile.jsx";
 import Notifications from "./pages/Notifications.jsx";

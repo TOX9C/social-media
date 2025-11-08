@@ -25,12 +25,12 @@ const MessageBubble = ({ content, who, time, userId }) => {
       className={`${me ? "self-end" : "self-start"} text-[#f4f3ee] flex flex-col mx-2 `}
     >
       <div
-        className={`${me ? "bg-[#6d9d2e] rounded-bl-lg" : "bg-[#6a6561] rounded-br-lg"} text-[1rem] px-4 py-1 rounded-t-lg `}
+        className={`${me ? "bg-[#6d9d2e] rounded-bl-lg" : "bg-[#6a6561] rounded-br-lg"} text-[1rem] px-4 py-1 rounded-t-lg select-text`}
       >
         {content.trim()}
       </div>
       <p
-        className={`text-[.8rem] ${me ? "ml-auto" : "mr-auto"} text-[#d6d2c0]`}
+        className={`text-[.8rem] ${me ? "ml-auto" : "mr-auto"} text-[#d6d2c0] select-none`}
       >
         {formatPostTime(time)}
       </p>

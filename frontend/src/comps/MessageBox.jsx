@@ -57,7 +57,7 @@ const MessageBox = ({
 
   return (
     <div className="flex-col w-full h-full flex overflow-hidden">
-      <div className="border-b-2 border-[#544c46] bg-[#463f3a] text-[#f4f3ee] font-bold text-base md:text-[1.3rem] px-3 py-3 flex gap-2 md:gap-3 items-center shrink-0">
+      <div className="border-b-2 border-[#544c46] bg-[#463f3a] text-[#f4f3ee] font-bold text-base md:text-[1.3rem] px-3 py-3 flex gap-2 md:gap-3 items-center shrink-0 select-none">
         <div
           className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-black shrink-0"
           style={{

@@ -90,7 +90,7 @@ const ProfileUserCard = ({ userId }) => {
   );
 
   return (
-    <div className="overflow-y-auto scrollbar-hide h-screen w-full md:w-[50%] border-r-0 md:border-r-2 border-l-0 md:border-l-2 border-[#544c46] text-[#d6d2c0]">
+    <div className="overflow-y-auto scrollbar-hide h-screen w-full md:w-[50%] border-r-0 md:border-r-2 border-l-0 md:border-l-2 border-[#544c46] text-[#d6d2c0] select-none">
       <div className="w-full flex flex-col min-h-fit shrink-0 justify-start border-[#544c46] border-b-2 py-3 px-3 md:px-4">
         <div className="shrink-0 flex mb-3 gap-2 md:gap-3 flex-wrap items-start">
           <div

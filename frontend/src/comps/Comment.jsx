@@ -19,7 +19,7 @@ const Comment = ({ pfpUrl, username, content, time }) => {
   }
   return (
     <div className="flex flex-col border-b-2 border-[#544c46] p-3 text-[#f4f3ee]">
-      <div className="flex gap-2 items-center ">
+      <div className="flex gap-2 items-center select-none">
         <div
           className="w-8 h-8 rounded-full bg-black"
           style={{
@@ -30,8 +30,8 @@ const Comment = ({ pfpUrl, username, content, time }) => {
         ></div>
         <p>{username}</p>
       </div>
-      <p className="mt-1 pl-1">{content}</p>
-      <p className="text-[#d6d2c0] ml-auto">{formatPostTime(time)}</p>
+      <p className="mt-1 pl-1 select-text">{content}</p>
+      <p className="text-[#d6d2c0] ml-auto select-none">{formatPostTime(time)}</p>
     </div>
   );
 };

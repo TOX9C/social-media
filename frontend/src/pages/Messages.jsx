@@ -50,7 +50,7 @@ const Messages = () => {
                 setFriends(sorted);
             }
         } catch (error) {
-            console.log(error);
+            // Error fetching friends list
         }
     };
 

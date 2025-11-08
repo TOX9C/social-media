@@ -18,7 +18,7 @@ const MakeComment = ({ postId, authorId, onAddComment }) => {
   }, [content]);
 
   const submitComment = async () => {
-    if (content.trim() == "") return console.log("n o");
+    if (content.trim() == "") return;
     try {
       const response = await fetch(`${API_URL}/comment/make`, {
         method: "POST",

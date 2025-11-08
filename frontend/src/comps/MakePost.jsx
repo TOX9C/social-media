@@ -19,7 +19,7 @@ const MakePost = ({ setPosts }) => {
 
   const handleMakePost = async () => {
     try {
-      if (content.trim() == "") return console.log("noooo");
+      if (content.trim() == "") return;
       const response = await fetch(`${API_URL}/post/make`, {
         method: "POST",
         headers: {

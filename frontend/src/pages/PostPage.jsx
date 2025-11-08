@@ -26,7 +26,7 @@ const PostPage = () => {
       const data = await responce.json();
       setPost(data.post);
     } catch (error) {
-      console.log(error);
+      // Error fetching post
     } finally {
       setIsLoading(false);
     }

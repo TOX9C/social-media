@@ -14,7 +14,7 @@ const MessageBox = ({
   const bottomRef = useRef(null);
 
   const sendMessage = () => {
-    if (content.trim() == "") return console.log("no message");
+    if (content.trim() == "") return;
     socket.emit("sendMessage", { receiverId: user.id, content });
     setContent("");
 

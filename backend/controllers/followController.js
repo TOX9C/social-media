@@ -19,7 +19,7 @@ const getRand = async (req, res) => {
 
     res.json({ users });
   } catch (error) {
-    console.log(error);
+    return res.status(500).json({ message: "server error" });
   }
 };
 
@@ -46,7 +46,7 @@ const getAll = async (req, res) => {
 
     return res.json({ following, followers });
   } catch (error) {
-    console.log(error);
+    return res.status(500).json({ message: "server error" });
   }
 };
 
@@ -62,13 +62,17 @@ const getRequests = async (req, res) => {
 
     return res.json({ requests });
   } catch (err) {
-    console.log(err.message);
+    return res.status(500).json({ message: "server error" });
   }
 };
 
 const accept = async (req, res) => {
   const userId = req.user.id;
   const { followerId, followingId, id } = req.body;
+
+  if (!followerId || !followingId) {
+    return res.status(400).json({ message: "follower and following ids required" });
+  }
 
   try {
     const request = await prisma.follow.findFirst({
@@ -79,7 +83,7 @@ const accept = async (req, res) => {
     });
 
     if (!request || request.followingId !== userId)
-      return res.json({ message: "not authorized" });
+      return res.status(403).json({ message: "not authorized" });
 
     await prisma.follow.update({
       where: {
@@ -105,7 +109,7 @@ const accept = async (req, res) => {
 
     return res.json({ message: "request accepted" });
   } catch (error) {
-    console.log(error);
+    return res.status(500).json({ message: "server error" });
   }
 };
 
@@ -113,12 +117,16 @@ const reject = async (req, res) => {
   const userId = req.user.id;
   const { followerId } = req.body;
 
+  if (!followerId) {
+    return res.status(400).json({ message: "follower id required" });
+  }
+
   try {
     const request = await prisma.follow.findFirst({
       where: { followingId: userId, followerId },
     });
     if (!request || request.followingId !== userId)
-      return res.json({ message: "not authorized" });
+      return res.status(403).json({ message: "not authorized" });
 
     await prisma.follow.update({
       where: { followerId_followingId: { followerId, followingId: userId } },
@@ -135,15 +143,21 @@ const reject = async (req, res) => {
 
     return res.json({ message: "request rejected" });
   } catch (error) {
-    console.log(error);
+    return res.status(500).json({ message: "server error" });
   }
 };
 
 const request = async (req, res) => {
   const { followingId } = req.body;
+
+  if (!followingId) {
+    return res.status(400).json({ message: "following id required" });
+  }
+
   const fId = parseInt(followingId);
   const userId = req.user.id;
-  uId = parseInt(userId);
+  const uId = parseInt(userId);
+  
   try {
     const exsit = await prisma.follow.findFirst({
       where: {
@@ -152,7 +166,7 @@ const request = async (req, res) => {
       },
     });
 
-    if (exsit) return res.json({ message: "already requested" });
+    if (exsit) return res.status(409).json({ message: "already requested" });
 
     await prisma.follow.create({
       data: {
@@ -175,7 +189,7 @@ const request = async (req, res) => {
 
     return res.json({ message: "request sent" });
   } catch (error) {
-    console.log(error);
+    return res.status(500).json({ message: "server error" });
   }
 };
 

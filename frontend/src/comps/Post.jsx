@@ -56,7 +56,7 @@ const Post = ({
         }
       }
     } catch (error) {
-      console.log(error);
+      // Error liking post
     }
   };
 

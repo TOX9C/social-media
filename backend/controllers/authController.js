@@ -11,30 +11,48 @@ const prisma = new PrismaClient();
 
 const login = async (req, res) => {
   const { username, password } = req.body;
+  
+  if (!username || !password) {
+    return res.status(400).json({ message: "username and password required" });
+  }
+
   try {
     const user = await prisma.user.findUnique({
       where: {
         username,
       },
     });
-    if (!user) return res.json({ message: "wrong username" });
+    if (!user) return res.status(401).json({ message: "wrong username" });
 
     const match = await bcrypt.compare(password, user.password);
-    if (!match) return res.json({ message: "wrong password" });
+    if (!match) return res.status(401).json({ message: "wrong password" });
     const token = jwt.sign({ id: user.id }, process.env.JWT_CODE, {
       expiresIn: "7d",
     });
     return res.json({ token });
   } catch (error) {
-    console.log(error);
+    return res.status(500).json({ message: "server error" });
   }
 };
 
 const register = async (req, res) => {
   const { username, password } = req.body;
+  
+  if (!username || !password) {
+    return res.status(400).json({ message: "username and password required" });
+  }
+
+  if (username.length < 3) {
+    return res.status(400).json({ message: "username must be at least 3 characters" });
+  }
+
+  if (password.length < 6) {
+    return res.status(400).json({ message: "password must be at least 6 characters" });
+  }
+
   try {
     const existingUser = await prisma.user.findUnique({ where: { username } });
-    if (existingUser) return res.json({ message: "username not available" });
+    if (existingUser) return res.status(409).json({ message: "username not available" });
     const salt = await bcrypt.genSalt(10);
     const hashedPass = await bcrypt.hash(password, salt);
 
@@ -50,7 +68,7 @@ const register = async (req, res) => {
 
     return res.json({ token });
   } catch (error) {
-    console.log(error);
+    return res.status(500).json({ message: "server error" });
   }
 };
 
@@ -94,38 +112,42 @@ const getUser = async (req, res) => {
 const uploadpfp = async (req, res) => {
   const userId = req.user.id;
   const file = req.file;
-  if (!file) return console.log("no file");
-
-  const fileName = `${userId}/${Date.now()}_${file.originalname}`;
-  const { data: uploadData, error } = await supabase.storage
-    .from("profile_picture")
-    .upload(fileName, file.buffer, {
-      contentType: file.mimetype,
-      upsert: true,
-    });
-  if (error) {
-    console.log(error);
+  
+  if (!file) {
+    return res.status(400).json({ message: "no file uploaded" });
   }
-
-  const user = await prisma.user.findUnique({
-    where: {
-      id: userId,
-    },
-  });
-
-  if (user.pfpUrl) {
-    const { error } = await supabase.storage
-      .from("profile_picture")
-      .remove([user.pfpPath]);
-  }
-
-  const { data } = supabase.storage
-    .from("profile_picture")
-    .getPublicUrl(fileName);
-
-  const publicUrl = data.publicUrl;
 
   try {
+    const fileName = `${userId}/${Date.now()}_${file.originalname}`;
+    const { data: uploadData, error } = await supabase.storage
+      .from("profile_picture")
+      .upload(fileName, file.buffer, {
+        contentType: file.mimetype,
+        upsert: true,
+      });
+    
+    if (error) {
+      return res.status(500).json({ message: "failed to upload file" });
+    }
+
+    const user = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (user.pfpUrl && user.pfpPath) {
+      await supabase.storage
+        .from("profile_picture")
+        .remove([user.pfpPath]);
+    }
+
+    const { data } = supabase.storage
+      .from("profile_picture")
+      .getPublicUrl(fileName);
+
+    const publicUrl = data.publicUrl;
+
     await prisma.user.update({
       where: {
         id: userId,
@@ -135,10 +157,11 @@ const uploadpfp = async (req, res) => {
         pfpPath: fileName,
       },
     });
+
+    return res.json({ publicUrl });
   } catch (error) {
-    console.log(error);
+    return res.status(500).json({ message: "server error" });
   }
-  return res.json({ publicUrl });
 };
 
 module.exports = { uploadpfp, login, register, getUser };

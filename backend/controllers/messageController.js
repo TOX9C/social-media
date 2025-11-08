@@ -85,13 +85,18 @@ const getFriends = async (req, res) => {
 
     return res.json({ latestMessage });
   } catch (error) {
-    console.log(error);
+    return res.status(500).json({ message: "server error" });
   }
 };
 
 const history = async (req, res) => {
   const userId = req.user.id;
   const { otherId } = req.body;
+
+  if (!otherId) {
+    return res.status(400).json({ message: "other user id required" });
+  }
+
   try {
     const follow = await prisma.follow.findFirst({
       where: {
@@ -124,7 +129,7 @@ const history = async (req, res) => {
     });
     return res.json({ messages });
   } catch (error) {
-    console.log(error);
+    return res.status(500).json({ message: "server error" });
   }
 };
 
@@ -136,7 +141,7 @@ const all = async (req, res) => {
     });
     return res.json({ messages });
   } catch (error) {
-    console.log(error);
+    return res.status(500).json({ message: "server error" });
   }
 };
 

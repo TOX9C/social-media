@@ -20,7 +20,7 @@ const AuthRouter = ({ children }) => {
       });
       if (responce.status === 401) navigate("/login");
     } catch (error) {
-      console.log(error);
+      // Error checking authentication
     }
   };
   useEffect(() => {

@@ -22,7 +22,7 @@ const Notifications = () => {
         setNotifications(data.notis);
       }
     } catch (error) {
-      console.log(error);
+      // Error fetching notifications
     }
   };
 

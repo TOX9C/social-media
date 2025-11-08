@@ -24,12 +24,12 @@ const SearchAndFollow = () => {
         setUsers(data.users);
       }
     } catch (error) {
-      console.log(error);
+      // Error fetching random users
     }
   };
 
   const goSearch = () => {
-    if (searchValue.trim() == "") return console.log("nooo");
+    if (searchValue.trim() == "") return;
     navigate("/search", {
       state: {
         value: searchValue,

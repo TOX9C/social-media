@@ -22,13 +22,10 @@ const Login = () => {
 
       if (response.ok) {
         localStorage.setItem("token", data.token);
-        console.log("Login successful");
         navigate("/");
-      } else {
-        console.log(data.message || "Login failed");
       }
     } catch (error) {
-      console.log(error);
+      // Login error
     }
   };
 

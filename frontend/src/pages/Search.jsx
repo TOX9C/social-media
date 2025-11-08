@@ -28,7 +28,7 @@ const Search = () => {
   }, []);
 
   const submitSearch = async (value) => {
-    if (value.trim() == "") return console.log("noo");
+    if (value.trim() == "") return;
     setSearchLoading(true);
     setPosts([]);
     setUsers([]);
@@ -47,7 +47,7 @@ const Search = () => {
         setPosts(data.posts);
       }
     } catch (error) {
-      console.log(error);
+      // Error searching
     } finally {
       setSearchLoading(false);
       setSearched(true);

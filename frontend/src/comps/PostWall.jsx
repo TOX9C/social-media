@@ -20,7 +20,7 @@ const PostWall = () => {
         setPosts(data.posts);
       }
     } catch (error) {
-      console.log(error);
+      // Error fetching posts
     }
   };
 

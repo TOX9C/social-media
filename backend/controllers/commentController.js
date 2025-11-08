@@ -5,6 +5,15 @@ const prisma = new PrismaClient();
 const make = async (req, res) => {
   const userId = req.user.id;
   const { authorId, postId, content } = req.body;
+
+  if (!content || content.trim().length === 0) {
+    return res.status(400).json({ message: "content required" });
+  }
+
+  if (!postId) {
+    return res.status(400).json({ message: "post id required" });
+  }
+
   try {
     const comment = await prisma.comment.create({
       data: {
@@ -28,8 +37,8 @@ const make = async (req, res) => {
           type: "COMMENT",
           commentId: comment.id,
           postId: postId,
-          triggerBy: { connect: { id: userId } }, // ✅ correct relation name
-          user: { connect: { id: authorId } }, // ✅ connect existing user
+          triggerBy: { connect: { id: userId } },
+          user: { connect: { id: authorId } },
         },
       });
 
@@ -40,7 +49,7 @@ const make = async (req, res) => {
 
     return res.json({ message: "comment created", comment });
   } catch (error) {
-    console.log(error);
+    return res.status(500).json({ message: "server error" });
   }
 };
 

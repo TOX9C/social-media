@@ -9,10 +9,12 @@ const MessageUserBox = ({
   pfpUrl,
 }) => {
   let seenMessage = "";
-  if (message.content.length > 20) {
-    seenMessage = message.content.slice(0, 15) + "...";
-  } else {
-    seenMessage = message.content;
+  if (message && message.content) {
+    if (message.content.length > 20) {
+      seenMessage = message.content.slice(0, 15) + "...";
+    } else {
+      seenMessage = message.content;
+    }
   }
   return (
     <div

@@ -36,11 +36,17 @@ const Messages = () => {
             });
             const data = await responce.json();
             if (responce.ok) {
-                const sorted = data.latestMessage
-                    .filter(item => item.message) // Remove items with null messages
-                    .sort((a, b) =>
-                        new Date(b.message.created_at) - new Date(a.message.created_at)
-                    );
+                const sorted = data.latestMessage.sort((a, b) => {
+                    // Friends with messages first, sorted by date
+                    if (a.message && b.message) {
+                        return new Date(b.message.created_at) - new Date(a.message.created_at);
+                    }
+                    // Friends with messages come before those without
+                    if (a.message && !b.message) return -1;
+                    if (!a.message && b.message) return 1;
+                    // Both have no messages, sort alphabetically
+                    return a.friend.username.localeCompare(b.friend.username);
+                });
                 setFriends(sorted);
             }
         } catch (error) {
@@ -65,7 +71,7 @@ const Messages = () => {
                 setMessages(data.messages);
             }
         } catch (error) {
-            console.log(error);
+            // Error fetching message history
         } finally {
             setWindowLoading(false);
         }

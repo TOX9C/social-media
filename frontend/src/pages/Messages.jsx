@@ -11,19 +11,35 @@ const Messages = () => {
     const [messages, setMessages] = useState([]);
     const [windowLoading, setWindowLoading] = useState(false);
 
-    socket.on("receiveMessage", ({ message }) => {
-        if (!message) return;
-        setFriends((prev) =>
-            prev.map((item) =>
-                item.friend.id === message.senderId
-                    ? { friend: item.friend, message, last: item.friend.username }
-                    : item,
-            ),
-        );
-        if (message.senderId == selectedUser.id) {
-            setMessages((prev) => [...prev, message]);
-        }
-    });
+    useEffect(() => {
+        const handleReceiveMessage = ({ message }) => {
+            if (!message) return;
+            
+            // Update friend list
+            setFriends((prev) =>
+                prev.map((item) =>
+                    item.friend.id === message.senderId
+                        ? { friend: item.friend, message, last: item.friend.username }
+                        : item,
+                ),
+            );
+            
+            // Update messages in conversation if the message is from the selected user
+            setMessages((prev) => {
+                // Check if we're viewing a conversation with the sender
+                if (selectedUser && message.senderId === selectedUser.id) {
+                    return [...prev, message];
+                }
+                return prev;
+            });
+        };
+
+        socket.on("receiveMessage", handleReceiveMessage);
+
+        return () => {
+            socket.off("receiveMessage", handleReceiveMessage);
+        };
+    }, [selectedUser]);
 
     const getList = async () => {
         try {

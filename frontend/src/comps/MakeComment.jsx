@@ -31,12 +31,11 @@ const MakeComment = ({ postId, authorId, onAddComment }) => {
 
       const data = await response.json();
       if (response.ok) {
-        console.log(data.message);
         setContent("");
         if (onAddComment) onAddComment(data.comment);
       }
     } catch (error) {
-      console.log(error);
+      // Error posting comment
     }
   };
 

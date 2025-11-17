@@ -11,7 +11,7 @@ const prisma = new PrismaClient();
 
 const login = async (req, res) => {
   const { username, password } = req.body;
-  
+
   if (!username || !password) {
     return res.status(400).json({ message: "username and password required" });
   }
@@ -37,22 +37,27 @@ const login = async (req, res) => {
 
 const register = async (req, res) => {
   const { username, password } = req.body;
-  
+
   if (!username || !password) {
     return res.status(400).json({ message: "username and password required" });
   }
 
   if (username.length < 3) {
-    return res.status(400).json({ message: "username must be at least 3 characters" });
+    return res
+      .status(400)
+      .json({ message: "username must be at least 3 characters" });
   }
 
   if (password.length < 6) {
-    return res.status(400).json({ message: "password must be at least 6 characters" });
+    return res
+      .status(400)
+      .json({ message: "password must be at least 6 characters" });
   }
 
   try {
     const existingUser = await prisma.user.findUnique({ where: { username } });
-    if (existingUser) return res.status(409).json({ message: "username not available" });
+    if (existingUser)
+      return res.status(409).json({ message: "username not available" });
     const salt = await bcrypt.genSalt(10);
     const hashedPass = await bcrypt.hash(password, salt);
 
@@ -112,7 +117,7 @@ const getUser = async (req, res) => {
 const uploadpfp = async (req, res) => {
   const userId = req.user.id;
   const file = req.file;
-  
+
   if (!file) {
     return res.status(400).json({ message: "no file uploaded" });
   }
@@ -125,7 +130,7 @@ const uploadpfp = async (req, res) => {
         contentType: file.mimetype,
         upsert: true,
       });
-    
+
     if (error) {
       return res.status(500).json({ message: "failed to upload file" });
     }
@@ -137,9 +142,7 @@ const uploadpfp = async (req, res) => {
     });
 
     if (user.pfpUrl && user.pfpPath) {
-      await supabase.storage
-        .from("profile_picture")
-        .remove([user.pfpPath]);
+      await supabase.storage.from("profile_picture").remove([user.pfpPath]);
     }
 
     const { data } = supabase.storage
